@@ -26,6 +26,9 @@ class SalesRep {
         this.name = name;
         this.clients = clients;
     }
+    getDetails() {
+        return `Name: ${this.name}, Clients: ${this.clients}`
+    }
     addClient(customer) {
         this.clients.push(customer);
     }
@@ -37,6 +40,26 @@ class SalesRep {
         }
     }
 };
-const tracy = new SalesRep("tracy", [jeff, new Customer("Jim", "Jim@fun.com", [300, 200, 50])]);
+const tracy = new SalesRep("tracy", [jeff.getDetails(), new Customer("Jim", "Jim@fun.com", [300, 200, 50]).getDetails()]);
 console.log(tracy);
+console.log(tracy.getDetails());
 console.log(tracy.getClientTotal("Jim"));
+
+//Task 3: Create a VIPCustomer Class (Extends Customer)
+class VIPCustomer extends Customer {
+    constructor(name, email, purchaseHistory, vipLevel) {
+        super(name, email, purchaseHistory);
+        this.vipLevel = vipLevel;
+    }
+    getDetails() {
+        return `Name: ${this.name}, Email: ${this.email}, Purchase History: ${this.purchaseHistory}, VIP Level: ${this.vipLevel}`;
+    }
+    getTotalSpent() {
+        const total = super.getTotalSpent();
+        return (total * 0.10) + total;
+    }
+};
+const jill = new VIPCustomer("Jill", "Jill@chill.com", [100, 100, 300], "Gold");
+console.log(jill);
+console.log(jill.getDetails());
+console.log(jill.getTotalSpent());
